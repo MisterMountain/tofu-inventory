@@ -69,14 +69,14 @@ func main() {
 	}
 
 	if f.IsDir() {
-		cmd := exec.Command("terraform", "show", "-json")
+		cmd := exec.Command("tofu", "show", "-json")
 		cmd.Dir = path
 		var out bytes.Buffer
 		cmd.Stdout = &out
 
 		err = cmd.Run()
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Error running `terraform show -json` in directory %s, %s, falling back to trying Terraform pre-0.12 command\n", path, err)
+			fmt.Fprintf(os.Stderr, "Error running `tofu show -json` in directory %s, %s, falling back to trying Terraform pre-0.12 command\n", path, err)
 
 			cmd = exec.Command("terraform", "state", "pull")
 			cmd.Dir = path
